@@ -1,4 +1,4 @@
-package spring.generic.server;
+package spring.generic.server.Rests;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;

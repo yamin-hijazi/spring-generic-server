@@ -3,6 +3,7 @@ package spring.generic.server.Security.Others;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
+import spring.generic.server.MongoDB.MongoDBUtills;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,21 +21,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String username) {
-        // Just a mock interface support only one single root
-        // Here you can add DAO to load user from the database
-        if (username.equals(USER_TEST)) {
+
+
+        spring.generic.server.MongoDB.User userByUsername = MongoDBUtills.getUserByUsername(username);
+
+        if (userByUsername != null) {
+            String stringFromDB = userByUsername.getPassword();
             User user = new User();
-            user.setLogin(USER_TEST);
-            user.setPassword(new ShaPasswordEncoder().encodePassword("password", null));
+            user.setLogin(username);
+            user.setPassword(new ShaPasswordEncoder().encodePassword(stringFromDB, null));
             return user;
+
         } else {
             return null;
         }
+
+
+//        // Just a mock interface support only one single root
+//        // Here you can add DAO to load user from the database
+//        if (username.equals(USER_TEST)) {
+//            User user = new User();
+//            user.setLogin(USER_TEST);
+//            user.setPassword(new ShaPasswordEncoder().encodePassword("password", null));
+//            return user;
+//        } else {
+//            return null;
+//        }
     }
 
     @Override
     public List<String> getPermissions(String username) {
-       List<String> permissions = new ArrayList<>();
+        List<String> permissions = new ArrayList<>();
         permissions.add("ROLE_ADMIN");
         return permissions;
     }

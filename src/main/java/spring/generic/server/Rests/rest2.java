@@ -1,4 +1,4 @@
-package spring.generic.server;
+package spring.generic.server.Rests;
 
 import org.springframework.web.bind.annotation.*;
 
