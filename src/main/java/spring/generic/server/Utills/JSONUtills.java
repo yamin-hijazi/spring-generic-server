@@ -8,15 +8,25 @@ import org.json.JSONObject;
  */
 public class JSONUtills {
 
+    public static final String SUCCESS = "success";
+    public static final String FAILED = "failed";
+
     public static String getSuccessJSON(){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result","success");
+        jsonObject.put("result",SUCCESS);
         return jsonObject.toString();
     }
 
     public static String getFailedJSON(){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result","failed");
+        jsonObject.put("result",FAILED);
+        return jsonObject.toString();
+    }
+
+    public static String getBadCredentialsJSON(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result",FAILED);
+        jsonObject.put("reason","Wrong username and/or password");
         return jsonObject.toString();
     }
 
@@ -30,6 +40,7 @@ public class JSONUtills {
     public static String getExceptionJson(Exception e)
     {
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result",FAILED);
         jsonObject.put("exception",e.toString());
         return jsonObject.toString();
     }

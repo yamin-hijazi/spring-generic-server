@@ -3,22 +3,37 @@ package spring.generic.server.Utills;
 /**
  * Created by gadiel on 15/10/2016.
  */
+
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MailClient {
-    private MailSender mailSender;
+    private JavaMailSenderImpl mailSender;
 
-    public void setMailSender(MailSender mailSender) {
+    public void setMailSender(JavaMailSenderImpl mailSender) {
         this.mailSender = mailSender;
     }
 
     public void sendMail(String from, String to, String subject, String msg) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(from);
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(msg);
-        mailSender.send(message);
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
+            mimeMessageHelper.setTo(to);
+            mimeMessageHelper.setReplyTo(from);
+            mimeMessageHelper.setFrom(from);
+            mimeMessageHelper.setSubject(subject);
+            mimeMessageHelper.setText(msg, true);
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

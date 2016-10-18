@@ -7,6 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import spring.generic.server.Utills.Utills;
 
 /**
@@ -86,7 +87,7 @@ public class DBUserUtills {
         User savedUser = mongoOperation.findOne(searchUserQuery, User.class);
         if (savedUser != null) {
             savedUser.setActivationKey(Utills.createActivationKey());
-            savedUser.setPassword(password);
+            savedUser.setPassword(new ShaPasswordEncoder().encodePassword(password, null));
             mongoOperation.save(savedUser);
             return true;
         }
