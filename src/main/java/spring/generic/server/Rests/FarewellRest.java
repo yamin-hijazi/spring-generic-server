@@ -9,16 +9,16 @@ import spring.generic.server.Security.Parameters.UserRoles;
  */
 @RestController
 @RequestMapping("/farewell")
-public class rest2 {
+public class FarewellRest {
 
-    @Secured(UserRoles.SimpleUser)
+    @Secured({UserRoles.SimpleUser, UserRoles.AdminUser})
     @RequestMapping(value ="/sayBye", method = RequestMethod.GET)
     public String sayHi(@RequestParam(value="name", defaultValue="World") String name) {
         return "Bye "+name;
         //example: http://localhost:8080/farewell/sayBye?name=ido
     }
 
-    @Secured(UserRoles.SimpleUser)
+    @Secured({UserRoles.SimpleUser, UserRoles.AdminUser})
     @RequestMapping(value = "Seeya/{name}", method = RequestMethod.GET)
     String readBookmark(@PathVariable String name) {
         return "Seeya "+name;

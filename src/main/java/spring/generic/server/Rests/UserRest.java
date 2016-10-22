@@ -1,7 +1,7 @@
 package spring.generic.server.Rests;
 
 import org.springframework.web.bind.annotation.*;
-import spring.generic.server.MongoDB.DBUserUtills;
+import spring.generic.server.MongoDB.*;
 import spring.generic.server.Utills.JSONUtills;
 import spring.generic.server.Utills.Utills;
 
@@ -10,11 +10,11 @@ import spring.generic.server.Utills.Utills;
  */
 @RestController
 @RequestMapping("/user")
-public class User {
+public class UserRest {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@RequestBody String userString) {
-        spring.generic.server.MongoDB.SimpleUser user = new spring.generic.server.MongoDB.SimpleUser(userString);
+        SimpleUser user = new SimpleUser(userString);
         if (!DBUserUtills.isEmailExist(user.getEmail())) {
             DBUserUtills.insertUserByEntity(user);
             Utills.sendConfirmationEmail(user);
@@ -25,7 +25,7 @@ public class User {
 
     @RequestMapping(value = "/signupForAdmin", method = RequestMethod.POST)
     public String signupForAdmin(@RequestBody String userString) {
-        spring.generic.server.MongoDB.AdminUser user = new spring.generic.server.MongoDB.AdminUser(userString);
+        AdminUser user = new AdminUser(userString);
         if (!DBUserUtills.isEmailExist(user.getEmail())) {
             DBUserUtills.insertUserByEntity(user);
             Utills.sendConfirmationEmail(user);
@@ -37,8 +37,6 @@ public class User {
 
     @RequestMapping(value = "activateAccount/{code}", method = RequestMethod.GET)
     String activateUser(@PathVariable String code) {
-        //  spring.generic.server.Security.Others.NuvolaUserDetails user = (spring.generic.server.Security.Others.NuvolaUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //  String username = user.getUsername(); //get logged in username
         if (DBUserUtills.activateUser(code)) {
             return JSONUtills.getSuccessJSON();
         }
@@ -47,7 +45,7 @@ public class User {
 
     @RequestMapping(value = "forgotPassword/{email:.+}", method = RequestMethod.GET)
     String forgotPassword(@PathVariable String email) {
-        spring.generic.server.MongoDB.User user = DBUserUtills.changeActivationKey(email);
+        User user = DBUserUtills.changeActivationKey(email);
         if (user != null) {
             Utills.sendForgotPasswordEmail(user);
             return JSONUtills.getSuccessJSON();

@@ -2,6 +2,7 @@ package spring.generic.server.Security.Others;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import spring.generic.server.MongoDB.User;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,7 +31,7 @@ public class NuvolaUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getLogin();
+        return user.getEmail();
     }
 
     @Override

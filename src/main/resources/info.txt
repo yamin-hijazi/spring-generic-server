@@ -1,0 +1,4 @@
+ get the user logged in username
+
+ //  spring.generic.server.Security.Others.NuvolaUserDetails user = (spring.generic.server.Security.Others.NuvolaUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //  String username = user.getUsername(); //get logged in username

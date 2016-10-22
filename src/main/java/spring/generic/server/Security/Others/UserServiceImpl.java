@@ -3,6 +3,7 @@ package spring.generic.server.Security.Others;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.generic.server.MongoDB.DBUserUtills;
+import spring.generic.server.MongoDB.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +19,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String email) {
-        User securityUser = new User(); // this is the security User
-        spring.generic.server.MongoDB.User DBUser = DBUserUtills.getUserByEmail(email);     //  this is the DB User
-        if (DBUser != null) {   // if the user exist in the DB
-            securityUser.setLogin(email);   // set the security User "true login (username)" as the login from DB
-            securityUser.setPassword(DBUser.getPassword()); // set the security User "true password" as the login from DB
-            securityUser.setRole(DBUser.getRole()); // set DB Role (Admin / Simple)
-            return securityUser;    // return the security User. in the background Spring mechanism will compare the TRUE values against the ones received from the UI
-        } else {
-            return null;
+        User DBUser = DBUserUtills.getUserByEmail(email);
+        if (DBUser != null) {
+            return DBUser;
         }
-        //since it so unclear, the process goes this way:
-        // a. calling getUserByUsername method (current).
-        // b. get the User object from the db according to the email
-        // c. set username and password in the security User Object - those are the real values
-        // d. spring compare the true values against the ones received in the UI (those parameters are not shown here
+            return null;
     }
 
     @Override

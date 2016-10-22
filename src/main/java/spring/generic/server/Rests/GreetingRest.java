@@ -9,7 +9,7 @@ import spring.generic.server.Security.Parameters.UserRoles;
  */
 @RestController
 @RequestMapping("/greeting")
-public class rest1 {
+public class GreetingRest {
 
     @Secured(UserRoles.AdminUser)
     @RequestMapping(value ="/sayHi", method = RequestMethod.GET)
