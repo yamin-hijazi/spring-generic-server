@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="scotchApp">
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    <script src="../javascript/script.js"></script>
+</head>
+<body ng-controller="mainController">
+
+<header>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Simple System Example</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                <li ng-show="loggedin"><a href="#secretpage"><i class="fa fa-shield"></i> Secret Page</a></li>
+                <li ng-hide="loggedin"><a href="#signin"><i class="glyphicon glyphicon-log-in"></i> Sign-in</a></li>
+                <li ng-hide="loggedin"><a href="#signup"><i class="	glyphicon glyphicon-pencil"></i> Sign-up</a></li>
+                <li ng-show="loggedin"><a href="#signout"><i class="glyphicon glyphicon-log-out"></i> Sign-out</a></li>
+                <li ng-show="loggedin"><a href="#"> {{ headerUsername }} </a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div id="main">
+    <div ng-view></div>
+</div>
+
+</body>
+</html>

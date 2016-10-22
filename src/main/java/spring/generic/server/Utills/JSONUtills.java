@@ -8,29 +8,27 @@ import org.json.JSONObject;
  */
 public class JSONUtills {
 
-    public static final String SUCCESS = "success";
-    public static final String FAILED = "failed";
 
     public static String getSuccessJSON(){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",SUCCESS);
+        jsonObject.put("result",true);
         return jsonObject.toString();
     }
 
     public static String getFailedJSON(){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",FAILED);
+        jsonObject.put("result",false);
         return jsonObject.toString();
     }
 
     public static String getBadCredentialsJSON(){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",FAILED);
+        jsonObject.put("result",false);
         jsonObject.put("reason","Wrong username and/or password");
         return jsonObject.toString();
     }
 
-    public static String getCustomizedReasonJSON(String result ,String reason){
+    public static String getCustomizedReasonJSON(boolean result ,String reason){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result",result);
         jsonObject.put("reason",reason);
@@ -40,7 +38,7 @@ public class JSONUtills {
     public static String getExceptionJson(Exception e)
     {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",FAILED);
+        jsonObject.put("result",false);
         jsonObject.put("exception",e.toString());
         return jsonObject.toString();
     }

@@ -42,4 +42,5 @@ public class UserServiceImpl implements UserService {
     public Boolean isCurrentUserLoggedIn() {
         return loggedInChecker.getLoggedInUser() != null;
     }
+
 }
