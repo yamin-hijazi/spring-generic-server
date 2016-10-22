@@ -1,6 +1,6 @@
 package spring.generic.server.Security.Others;
 
-import spring.generic.server.MongoDB.User;
+import spring.generic.server.MongoDB.User.User;
 
 import java.util.List;
 

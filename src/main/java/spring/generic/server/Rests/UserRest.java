@@ -1,9 +1,12 @@
 package spring.generic.server.Rests;
 
 import org.springframework.web.bind.annotation.*;
-import spring.generic.server.MongoDB.*;
+import spring.generic.server.MongoDB.User.AdminUser;
+import spring.generic.server.MongoDB.User.UserUtills;
+import spring.generic.server.MongoDB.User.SimpleUser;
+import spring.generic.server.MongoDB.User.User;
 import spring.generic.server.Utills.JSONUtills;
-import spring.generic.server.Utills.Utills;
+import spring.generic.server.Utills.EmailUtills;
 
 /**
  * Created by gadiel on 11/10/2016.
@@ -15,9 +18,9 @@ public class UserRest {
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@RequestBody String userString) {
         SimpleUser user = new SimpleUser(userString);
-        if (!DBUserUtills.isEmailExist(user.getEmail())) {
-            DBUserUtills.insertUserByEntity(user);
-            Utills.sendConfirmationEmail(user);
+        if (!UserUtills.isEmailExist(user.getEmail())) {
+            UserUtills.insertUserByEntity(user);
+            EmailUtills.sendConfirmationEmail(user);
             return JSONUtills.getSuccessJSON();
         }
         return JSONUtills.getCustomizedReasonJSON("failed", "username already exist");
@@ -26,9 +29,9 @@ public class UserRest {
     @RequestMapping(value = "/signupForAdmin", method = RequestMethod.POST)
     public String signupForAdmin(@RequestBody String userString) {
         AdminUser user = new AdminUser(userString);
-        if (!DBUserUtills.isEmailExist(user.getEmail())) {
-            DBUserUtills.insertUserByEntity(user);
-            Utills.sendConfirmationEmail(user);
+        if (!UserUtills.isEmailExist(user.getEmail())) {
+            UserUtills.insertUserByEntity(user);
+            EmailUtills.sendConfirmationEmail(user);
             return JSONUtills.getSuccessJSON();
         }
         return JSONUtills.getCustomizedReasonJSON("failed", "username already exist");
@@ -37,7 +40,7 @@ public class UserRest {
 
     @RequestMapping(value = "activateAccount/{code}", method = RequestMethod.GET)
     String activateUser(@PathVariable String code) {
-        if (DBUserUtills.activateUser(code)) {
+        if (UserUtills.activateUser(code)) {
             return JSONUtills.getSuccessJSON();
         }
         return JSONUtills.getFailedJSON();
@@ -45,9 +48,9 @@ public class UserRest {
 
     @RequestMapping(value = "forgotPassword/{email:.+}", method = RequestMethod.GET)
     String forgotPassword(@PathVariable String email) {
-        User user = DBUserUtills.changeActivationKey(email);
+        User user = UserUtills.changeActivationKey(email);
         if (user != null) {
-            Utills.sendForgotPasswordEmail(user);
+            EmailUtills.sendForgotPasswordEmail(user);
             return JSONUtills.getSuccessJSON();
         }
         return JSONUtills.getFailedJSON();
@@ -55,7 +58,7 @@ public class UserRest {
 
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public String changePassword(@RequestBody String body) {
-        if (DBUserUtills.changeUserPassword(body)) {
+        if (UserUtills.changeUserPassword(body)) {
             return JSONUtills.getSuccessJSON();
         }
         return JSONUtills.getFailedJSON();

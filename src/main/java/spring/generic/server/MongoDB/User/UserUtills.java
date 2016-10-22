@@ -1,4 +1,4 @@
-package spring.generic.server.MongoDB;
+package spring.generic.server.MongoDB.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,12 +8,13 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import spring.generic.server.Utills.Utills;
+import spring.generic.server.MongoDB.SpringMongoConfig;
+import spring.generic.server.Security.Utills.Utills;
 
 /**
  * Created by gadiel on 12/10/2016.
  */
-public class DBUserUtills {
+public class UserUtills {
 
     public static User getUserByEmail(String email) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoConfig.class);

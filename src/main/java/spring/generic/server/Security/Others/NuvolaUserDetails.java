@@ -2,7 +2,7 @@ package spring.generic.server.Security.Others;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import spring.generic.server.MongoDB.User;
+import spring.generic.server.MongoDB.User.User;
 
 import java.util.Collection;
 import java.util.List;

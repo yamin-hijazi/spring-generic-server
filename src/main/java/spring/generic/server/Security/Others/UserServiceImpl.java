@@ -2,8 +2,8 @@ package spring.generic.server.Security.Others;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.generic.server.MongoDB.DBUserUtills;
-import spring.generic.server.MongoDB.User;
+import spring.generic.server.MongoDB.User.UserUtills;
+import spring.generic.server.MongoDB.User.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String email) {
-        User DBUser = DBUserUtills.getUserByEmail(email);
+        User DBUser = UserUtills.getUserByEmail(email);
         if (DBUser != null) {
             return DBUser;
         }

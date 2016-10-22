@@ -1,6 +1,6 @@
-package spring.generic.server.MongoDB;
+package spring.generic.server.MongoDB.User;
 
-import spring.generic.server.Security.Parameters.UserRoles;
+import spring.generic.server.Utills.Params;
 
 import java.util.Date;
 
@@ -21,6 +21,6 @@ public class AdminUser extends User{
     }
 
     public String getRole(){
-        return UserRoles.AdminUser;
+        return Params.UserRoles.AdminUser;
     }
 }

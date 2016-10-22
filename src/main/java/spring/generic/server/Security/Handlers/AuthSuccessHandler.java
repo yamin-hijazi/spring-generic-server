@@ -8,7 +8,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import spring.generic.server.MongoDB.User;
+import spring.generic.server.MongoDB.User.User;
 import spring.generic.server.Security.Others.NuvolaUserDetails;
 import spring.generic.server.Utills.JSONUtills;
 

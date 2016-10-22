@@ -1,4 +1,4 @@
-package spring.generic.server.MongoDB;
+package spring.generic.server.MongoDB.User;
 
 /**
  * Created by gadiel on 12/10/2016.
@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import spring.generic.server.Utills.Utills;
+import spring.generic.server.Security.Utills.Utills;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

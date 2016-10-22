@@ -5,7 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import spring.generic.server.MongoDB.User;
+import spring.generic.server.MongoDB.User.User;
 import spring.generic.server.Security.Parameters.ResourcePaths;
 
 import javax.annotation.security.PermitAll;
