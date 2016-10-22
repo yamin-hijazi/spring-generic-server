@@ -9,8 +9,6 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final static String USER_TEST = "root";
-
     private final LoggedInChecker loggedInChecker;
 
     @Autowired
@@ -25,6 +23,7 @@ public class UserServiceImpl implements UserService {
         if (DBUser != null) {   // if the user exist in the DB
             securityUser.setLogin(email);   // set the security User "true login (username)" as the login from DB
             securityUser.setPassword(DBUser.getPassword()); // set the security User "true password" as the login from DB
+            securityUser.setRole(DBUser.getRole()); // set DB Role (Admin / Simple)
             return securityUser;    // return the security User. in the background Spring mechanism will compare the TRUE values against the ones received from the UI
         } else {
             return null;

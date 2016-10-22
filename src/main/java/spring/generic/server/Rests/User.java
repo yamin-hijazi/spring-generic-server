@@ -14,7 +14,18 @@ public class User {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@RequestBody String userString) {
-        spring.generic.server.MongoDB.User user = new spring.generic.server.MongoDB.User(userString);
+        spring.generic.server.MongoDB.SimpleUser user = new spring.generic.server.MongoDB.SimpleUser(userString);
+        if (!DBUserUtills.isEmailExist(user.getEmail())) {
+            DBUserUtills.insertUserByEntity(user);
+            Utills.sendConfirmationEmail(user);
+            return JSONUtills.getSuccessJSON();
+        }
+        return JSONUtills.getCustomizedReasonJSON("failed", "username already exist");
+    }
+
+    @RequestMapping(value = "/signupForAdmin", method = RequestMethod.POST)
+    public String signupForAdmin(@RequestBody String userString) {
+        spring.generic.server.MongoDB.AdminUser user = new spring.generic.server.MongoDB.AdminUser(userString);
         if (!DBUserUtills.isEmailExist(user.getEmail())) {
             DBUserUtills.insertUserByEntity(user);
             Utills.sendConfirmationEmail(user);

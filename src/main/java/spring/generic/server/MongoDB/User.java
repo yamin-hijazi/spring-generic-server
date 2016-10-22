@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Document(collection = "users")
-public class User {
+public abstract class User {
     @Id
     private String id;
     String username;
@@ -25,7 +25,6 @@ public class User {
     boolean activated;
 
     public User() {
-
     }
 
     public User(String password, String email, Date birthDate) {
@@ -107,6 +106,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public abstract String getRole();
 
 
 }

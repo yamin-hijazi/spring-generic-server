@@ -37,8 +37,6 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
         User user = userDetails.getUser();
         userDetails.setUser(user);
 
-        LOGGER.info(userDetails.getUsername() + " got is connected ");
-
         PrintWriter writer = response.getWriter();
         mapper.writeValue(writer, user);
         writer.flush();

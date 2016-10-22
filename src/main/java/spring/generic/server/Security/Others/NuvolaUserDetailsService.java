@@ -25,12 +25,11 @@ public class NuvolaUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        List<String> permissions = userService.getPermissions(user.getLogin());
-        for (String permission : permissions) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(permission));
-        }
+        // List<String> permissions = userService.getPermissions(user.getLogin());
+        //  for (String permission : permissions) {
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
+        //    }
 
         return new NuvolaUserDetails(user, grantedAuthorities);
     }
