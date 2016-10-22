@@ -9,7 +9,7 @@ import spring.generic.server.Utills.Params;
  */
 @RestController
 @RequestMapping("/farewell")
-public class FarewellRest {
+public class FarewellRest_EXAMPLE {
 
     @Secured({Params.UserRoles.SimpleUser, Params.UserRoles.AdminUser})
     @RequestMapping(value ="/sayBye", method = RequestMethod.GET)
