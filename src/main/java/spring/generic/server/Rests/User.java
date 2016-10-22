@@ -49,7 +49,7 @@ public class User {
     String forgotPassword(@PathVariable String email) {
         spring.generic.server.MongoDB.User user = DBUserUtills.changeActivationKey(email);
         if (user != null) {
-            Utills.sendConfirmationEmail(user);
+            Utills.sendForgotPasswordEmail(user);
             return JSONUtills.getSuccessJSON();
         }
         return JSONUtills.getFailedJSON();

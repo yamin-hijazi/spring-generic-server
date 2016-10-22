@@ -17,7 +17,6 @@ import java.util.Random;
  */
 public class Utills {
 
-
     public static String createActivationKey() {
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -38,19 +37,32 @@ public class Utills {
         } catch (Exception e) {
             return null;
         }
-
     }
 
-    public static void sendConfirmationEmail(User user){
+    public static void sendGenericEmail(String receiver, String title, String body)
+    {
         Resource r=new ClassPathResource("mail-bean.xml");
         BeanFactory b=new XmlBeanFactory(r);
         MailClient m=(MailClient)b.getBean("mailClient");
-        String sender="sendergmailid@gmail.com";//write here sender gmail id
-        String receiver=user.getEmail();//write here receiver id
-        String title = "Please activate your account";
-        String body = "link:" + user.getActivationKey();
+        String sender="sendergmailid@gmail.com";
         m.sendMail(sender,receiver,title,body);
     }
 
+    public static void sendConfirmationEmail(User user){
+        String receiver=user.getEmail();
+        String title = "Signup successfully";
+        String body = Constants.PREFIX_PATH+"/"+Constants.USER+"/activateAccount/" + user.getActivationKey();
+        sendGenericEmail(receiver, title, wrapWithHTML(body));
+    }
 
+    public static void sendForgotPasswordEmail(User user){
+        String receiver=user.getEmail();
+        String title = "Change password";
+        String body = Constants.PREFIX_PATH+"/"+Constants.USER+"/changePassword/" + user.getActivationKey();
+        sendGenericEmail(receiver, title, wrapWithHTML(body));
+    }
+
+    private static String wrapWithHTML(String cleanLink){
+        return "<a href='"+cleanLink+"'>Link</a>";
+    }
 }
