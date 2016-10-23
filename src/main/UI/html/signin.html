@@ -12,15 +12,14 @@
                 <label for="pwd">Password:</label>
                 <input type="password" class="form-control" id="pwd" placeholder="Enter password" ng-model="password">
             </div>
-            <!--<div class="checkbox">-->
-                <!--<label><input type="checkbox"> Remember me</label>-->
-            <!--</div>-->
             <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
         </form>
         {{ message }}
         <br>
         <img src="../resources/loading_spinner.gif" ng-show="showLoader">
-
+        <a ng-show="showForgotPassowrdLink" ng-click="sendForgotPasswordLink()">Forgot your password?</a>
 
     </div>
+
+
 </div>

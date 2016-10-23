@@ -81,8 +81,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/user/login").permitAll()
-                .antMatchers("/user/isloggedin").permitAll();
+                .antMatchers("/user/login").permitAll() 
+                .antMatchers("/user/isloggedin").permitAll()
+                .antMatchers("/user/changePassword").permitAll();
+
 
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 
@@ -96,7 +98,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.logout()
                 .permitAll()
-              //  .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_PATH, "DELETE"))
                 .logoutUrl(LOGOUT_PATH)
                 .logoutSuccessHandler(logoutSuccessHandler);
 

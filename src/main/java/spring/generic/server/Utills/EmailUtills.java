@@ -23,14 +23,14 @@ public class EmailUtills {
     public static void sendConfirmationEmail(User user){
         String receiver=user.getEmail();
         String title = "Signup successfully";
-        String body = Params.URI.PREFIX_PATH+"/"+ Params.URI.USER+"/activateAccount/" + user.getActivationKey();
+        String body = Params.UI.PREFIX_PATH+"/"+"/activateAccount/" + user.getActivationKey();
         sendGenericEmail(receiver, title, wrapWithHTML(body));
     }
 
     public static void sendForgotPasswordEmail(User user){
         String receiver=user.getEmail();
         String title = "Change password";
-        String body = Params.URI.PREFIX_PATH+"/"+ Params.URI.USER+"/changePassword/" + user.getActivationKey();
+        String body = Params.UI.PREFIX_PATH+"/"+ Params.UI.FORGOT_PASSWORD +"?key="+ user.getActivationKey();
         sendGenericEmail(receiver, title, wrapWithHTML(body));
     }
 
