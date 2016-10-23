@@ -10,7 +10,7 @@ scotchApp.config(function($routeProvider) {
 
         .when('/secretpage', {
             templateUrl : 'secretpage.html',
-            controller  : 'aboutController'
+           // controller  : 'aboutController'
         })
 
         .when('/signin', {
@@ -33,13 +33,12 @@ scotchApp.run(function($rootScope) {
 });
 
 scotchApp.controller('mainController', function($scope,$rootScope, $http) {
-   // $httpProvider.defaults.withCredentials = true;
     $http({
         method: 'GET',
         withCredentials: true,
         url: 'http://127.0.0.1:8080/user/isloggedin'
     }).then(function successCallback(response) {
-        $scope.$parent.headerUsername = setHeaderUsername(response);
+      //  $scope.$parent.headerUsername = setHeaderUsername(response);
         var answer = angular.fromJson(response.data);
         $scope.$parent.loggedin = answer.result;
     }, function errorCallback(response) {
