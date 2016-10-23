@@ -49,6 +49,7 @@ scotchApp.controller('mainController', function($scope,$rootScope, $http) {
 scotchApp.controller('signoutController', function($scope,$rootScope, $http) {
     $http({
         method: 'GET',
+        withCredentials: true,
         url: 'http://127.0.0.1:8080/user/logout'
     }).then(function successCallback(response) {
         $scope.message = "Logged out Successfully";

@@ -1,4 +1,4 @@
-package spring.generic.server.Security;
+package spring.generic.server.Security.CORS;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

@@ -14,8 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import spring.generic.server.Security.CORSFilter;
+import spring.generic.server.Security.CORS.CORSFilter;
 import spring.generic.server.Security.Handlers.AuthFailureHandler;
 import spring.generic.server.Security.Handlers.AuthSuccessHandler;
 import spring.generic.server.Security.Handlers.HttpLogoutSuccessHandler;
@@ -76,24 +75,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CORSFilter corsFilter;
 
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.addAllowedOrigin("*");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-   // }
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
 
-        http.authorizeRequests().antMatchers("/user/login").permitAll();
+        http.authorizeRequests()
+                .antMatchers("/user/login").permitAll()
+                .antMatchers("/user/isloggedin").permitAll();
 
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 
@@ -107,9 +96,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.logout()
                 .permitAll()
-                .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_PATH, "DELETE"))
+              //  .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_PATH, "DELETE"))
                 .logoutUrl(LOGOUT_PATH)
-               .logoutSuccessHandler(logoutSuccessHandler);
+                .logoutSuccessHandler(logoutSuccessHandler);
 
               http.addFilterBefore(corsFilter, ChannelProcessingFilter.class);
 

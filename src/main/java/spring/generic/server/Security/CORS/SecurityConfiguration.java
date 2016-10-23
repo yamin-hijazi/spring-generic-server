@@ -1,4 +1,4 @@
-package spring.generic.server.Security;
+package spring.generic.server.Security.CORS;
 
 /**
  * Created by gadiel on 23/10/2016.
