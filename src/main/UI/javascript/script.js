@@ -10,7 +10,7 @@ scotchApp.config(function ($routeProvider) {
 
         .when('/forgotpassword', {
             templateUrl: 'forgotpassword.html',
-             controller  : 'forgotpasswordController'
+            controller: 'forgotpasswordController'
         })
 
         .when('/secretpage', {
@@ -37,11 +37,6 @@ scotchApp.run(function ($rootScope) {
 });
 
 
-
-
-
-
-
 scotchApp.controller('mainController', function ($scope, $rootScope, $http) {
     $http({
         method: 'GET',
@@ -54,14 +49,6 @@ scotchApp.controller('mainController', function ($scope, $rootScope, $http) {
         $scope.loggedin = false;
     });
 });
-
-
-
-
-
-
-
-
 
 
 scotchApp.controller('signoutController', function ($scope, $rootScope, $http) {
@@ -78,20 +65,6 @@ scotchApp.controller('signoutController', function ($scope, $rootScope, $http) {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 scotchApp.controller('forgotpasswordController', function ($scope, $rootScope, $http) {
     $scope.changePassword = function () {
 
@@ -106,10 +79,10 @@ scotchApp.controller('forgotpasswordController', function ($scope, $rootScope, $
             data: body,
             url: 'http://127.0.0.1:8080/user/changePassword'
         }).then(function successCallback(data) {
-            if (data.result){
+            if (data.result) {
                 $scope.message = "Password changed Successfully";
             }
-            else{
+            else {
                 $scope.message = "Error changing password";
             }
         }, function errorCallback(response) {
@@ -117,11 +90,6 @@ scotchApp.controller('forgotpasswordController', function ($scope, $rootScope, $
         });
     }
 });
-
-
-
-
-
 
 
 scotchApp.controller('signinController', function ($scope, $http) {
@@ -159,7 +127,7 @@ scotchApp.controller('signinController', function ($scope, $http) {
     }
 
     $scope.sendForgotPasswordLink = function () {
-        if(!validateEmail($scope.username)){
+        if (!validateEmail($scope.username)) {
             $scope.message = "Please add valid email address";
             return;
         }
@@ -186,17 +154,6 @@ scotchApp.controller('signinController', function ($scope, $http) {
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 scotchApp.controller('signupController', function ($scope, $http) {
@@ -231,8 +188,6 @@ scotchApp.controller('signupController', function ($scope, $http) {
         });
     };
 });
-
-
 
 
 function setHeaderUsername(response) {
