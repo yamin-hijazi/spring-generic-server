@@ -16,7 +16,6 @@ import spring.generic.server.Utills.JSONUtills;
 @RequestMapping("/user")
 public class UserRest {
 
-    @CrossOrigin
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@RequestBody String userString) {
         SimpleUser user = new SimpleUser(userString);
@@ -28,7 +27,6 @@ public class UserRest {
         return JSONUtills.getCustomizedReasonJSON(false, "username already exist");
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/signupForAdmin", method = RequestMethod.POST)
     public String signupForAdmin(@RequestBody String userString) {
         AdminUser user = new AdminUser(userString);
@@ -40,7 +38,6 @@ public class UserRest {
         return JSONUtills.getCustomizedReasonJSON(false, "username already exist");
     }
 
-    @CrossOrigin
     @RequestMapping(value = "activateAccount/{code}", method = RequestMethod.GET)
     String activateUser(@PathVariable String code) {
         if (UserUtills.activateUser(code)) {
@@ -49,7 +46,6 @@ public class UserRest {
         return JSONUtills.getFailedJSON();
     }
 
-    @CrossOrigin
     @RequestMapping(value = "forgotPassword/{email:.+}", method = RequestMethod.GET)
     String forgotPassword(@PathVariable String email) {
         User user = UserUtills.changeActivationKey(email);
@@ -60,7 +56,6 @@ public class UserRest {
         return JSONUtills.getFailedJSON();
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public String changePassword(@RequestBody String body) {
         if (UserUtills.changeUserPassword(body)) {
@@ -82,13 +77,5 @@ public class UserRest {
            return  JSONUtills.getFailedJSON();
         }
     }
-
-    @CrossOrigin(origins = "http://localhost:63342")
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout() {
-        spring.generic.server.Security.Others.NuvolaUserDetails user = (spring.generic.server.Security.Others.NuvolaUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return JSONUtills.getSuccessJSON() ;
-    }
-
 
 }

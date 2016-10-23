@@ -13,7 +13,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import spring.generic.server.Security.CORSFilter;
 import spring.generic.server.Security.Handlers.AuthFailureHandler;
 import spring.generic.server.Security.Handlers.AuthSuccessHandler;
 import spring.generic.server.Security.Handlers.HttpLogoutSuccessHandler;
@@ -28,6 +30,7 @@ import spring.generic.server.Security.Parameters.ResourcePaths;
 //@ComponentScan(value = "com.nuvola.**.security")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_PATH = ResourcePaths.User.ROOT + ResourcePaths.User.LOGIN;
+    private static final String LOGOUT_PATH = ResourcePaths.User.ROOT + ResourcePaths.User.LOGOUT;
 
     @Autowired
     private NuvolaUserDetailsService userDetailsService;
@@ -60,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
@@ -69,30 +73,46 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+    @Autowired
+    private CORSFilter corsFilter;
+
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.addAllowedOrigin("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.addAllowedMethod("*");
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+   // }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .and()
-                .authenticationProvider(authenticationProvider())
-                .exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                .formLogin()
+
+        http.csrf().disable();
+
+        http.authorizeRequests().antMatchers("/user/login").permitAll();
+
+        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+
+        http.formLogin()
                 .permitAll()
                 .loginProcessingUrl(LOGIN_PATH)
                 .usernameParameter(Parameters.USERNAME)
                 .passwordParameter(Parameters.PASSWORD)
                 .successHandler(authSuccessHandler)
-                .failureHandler(authFailureHandler)
-                .and()
-                .logout()
+                .failureHandler(authFailureHandler);
+
+        http.logout()
                 .permitAll()
-                .logoutRequestMatcher(new AntPathRequestMatcher(LOGIN_PATH, "DELETE"))
-                .logoutSuccessHandler(logoutSuccessHandler)
-                .and()
-                .sessionManagement()
-                .maximumSessions(1);
+                .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_PATH, "DELETE"))
+                .logoutUrl(LOGOUT_PATH)
+               .logoutSuccessHandler(logoutSuccessHandler);
+
+              http.addFilterBefore(corsFilter, ChannelProcessingFilter.class);
+
+
     }
 }

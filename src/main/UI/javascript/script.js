@@ -33,8 +33,10 @@ scotchApp.run(function($rootScope) {
 });
 
 scotchApp.controller('mainController', function($scope,$rootScope, $http) {
+   // $httpProvider.defaults.withCredentials = true;
     $http({
         method: 'GET',
+        withCredentials: true,
         url: 'http://127.0.0.1:8080/user/isloggedin'
     }).then(function successCallback(response) {
         $scope.$parent.headerUsername = setHeaderUsername(response);
@@ -48,11 +50,10 @@ scotchApp.controller('mainController', function($scope,$rootScope, $http) {
 scotchApp.controller('signoutController', function($scope,$rootScope, $http) {
     $http({
         method: 'GET',
-        url: 'http://127.0.0.1:9090/orders-server/orders/logout/'
+        url: 'http://127.0.0.1:8080/user/logout'
     }).then(function successCallback(response) {
         $scope.message = "Logged out Successfully";
         $scope.$parent.loggedin = false;
-        $username = "none";
     }, function errorCallback(response) {
         $scope.message = "Error";
     });
@@ -65,7 +66,8 @@ scotchApp.controller('signinController', function($scope, $http) {
     $scope.showLoader=true;
         var jsonObj = "username="+$scope.username+"&password="+$scope.password;
         $http({
-            url: "http://127.0.0.1:8080/user/login/",
+            url: "http://127.0.0.1:8080/user/login",
+            withCredentials: true,
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -73,18 +75,13 @@ scotchApp.controller('signinController', function($scope, $http) {
             data: jsonObj
         }).success(function(data, status, headers, config) {
             $scope.showLoader=false;
-            if(data.result == "ConnectedSuccessfully") {
+            if(data.result) {
                 $scope.message = "You are now signed in.";
                 $scope.$parent.loggedin = true;
-                $scope.$parent.headerUsername = data.username;
-            }
-            else
-            {
-                $scope.message = data.result;
             }
         }).error(function(data, status, headers, config) {
             $scope.showLoader=false;
-            $scope.message = "Error. something went wrong.";
+            $scope.message = "Wrong username and/or password";
         });
     };
 });
