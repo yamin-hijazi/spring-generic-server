@@ -6,7 +6,7 @@ package spring.generic.server.Utills;
 public class Params {
 
     public class UI {
-        public static final String PREFIX_PATH = "http://localhost:63342/spring-generic-server/html/index.html#";
+        public static final String PREFIX_PATH = "http://http://35.161.107.25:8080/UI/html/index.html#";
         public static final String FORGOT_PASSWORD = "forgotpassword";
 
 
