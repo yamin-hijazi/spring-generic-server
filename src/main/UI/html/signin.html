@@ -1,4 +1,4 @@
-<!-- signin.html -->
+
 <div class="jumbotron text-center">
     <h1>Sign-in Page</h1>
 
@@ -16,9 +16,9 @@
         </form>
         {{ message }}
         <br>
-        <img src="../resources/loading_spinner.gif" ng-show="showLoader">
-        <a ng-show="showForgotPassowrdLink" ng-click="sendForgotPasswordLink()">Forgot your password?</a>
 
+        <a style="cursor:pointer;"  ng-show="showForgotPassowrdLink" ng-click="sendForgotPasswordLink()">Forgot your password?</a><br>
+        <img src="../resources/loading_spinner.gif" ng-show="showLoader">
     </div>
 
 

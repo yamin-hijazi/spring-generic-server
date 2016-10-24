@@ -67,23 +67,21 @@ scotchApp.controller('signoutController', function ($scope, $rootScope, $http) {
 
 scotchApp.controller('forgotpasswordController', function ($scope, $rootScope, $http) {
     $scope.changePassword = function () {
-
         var body = {
             "code": window.location.href.split('key=')[1],
             "password": $scope.password1
-
         };
         $http({
             method: 'POST',
             withCredentials: true,
             data: body,
             url: 'http://127.0.0.1:8080/user/changePassword'
-        }).then(function successCallback(data) {
-            if (data.result) {
+        }).then(function successCallback(response) {
+            if (response.data.result) {
                 $scope.message = "Password changed Successfully";
             }
             else {
-                $scope.message = "Error changing password";
+                $scope.message = "Error changing password.";
             }
         }, function errorCallback(response) {
             $scope.message = "Error changing password";
@@ -137,13 +135,13 @@ scotchApp.controller('signinController', function ($scope, $http) {
             withCredentials: true,
             url: 'http://127.0.0.1:8080/user/forgotPassword/' + $scope.username
         }).then(function successCallback(response) {
-            $scope.showForgotPassowrdLink = false;
+            $scope.showForgotPassowrdLink = true;
             $scope.message = "Check your email for instructions";
             $scope.showLoader = false;
             $scope.$parent.loggedin = false;
         }, function errorCallback(response) {
             $scope.message = "Error";
-            $scope.showLoader = false;
+            $scope.showLoader = true;
 
         });
     }
@@ -154,6 +152,9 @@ scotchApp.controller('signinController', function ($scope, $http) {
     }
 
 });
+
+
+
 
 
 scotchApp.controller('signupController', function ($scope, $http) {
