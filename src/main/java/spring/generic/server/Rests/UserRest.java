@@ -15,6 +15,17 @@ import spring.generic.server.Utills.JSONUtills;
 @RestController
 @RequestMapping("/user")
 public class UserRest {
+    
+        @RequestMapping(value = "/signup2", method = RequestMethod.POST)
+    public String signUp(@RequestBody String userString) {
+        SimpleUser user = new SimpleUser(userString);
+        if (UserUtills.isEmailExist(user.getEmail())) {
+            UserUtills.insertUserByEntity(user);
+            EmailUtills.sendConfirmationEmail(user);
+            return JSONUtills.getSuccessJSON();
+        }
+        return JSONUtills.getCustomizedReasonJSON(false, "username already exist");
+    }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@RequestBody String userString) {
