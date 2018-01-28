@@ -1,0 +1,32 @@
+<div data-aid="issue-extended-details" ng-controller="issue-extended-fields-footer-controller as $ctrl"
+	 class="width--100 margin-l--lg margin-r--lg margin-b--macro--xl fields-form">
+	<div class="margin-l--lg">
+		<translate key="qc:additional-information-fod">Additional information from fortify on demand:</translate>
+		<div class="additional-field">
+			<alm-loading-bar ng-show="$ctrl.loadStatus">
+				{{$ctrl.loadMessage}}
+			</alm-loading-bar>
+			<div ng-if="!$ctrl.loadStatus  && $ctrl.retrievalStatus">
+				<div>
+					<translate class="field-label width--500px" key="qc:fod-explanation">Explanation:</translate>
+					<div class = "fod-content" ng-bind-html = "$ctrl.explanation"></div>
+				</div>
+				<div>
+					<translate class="field-label width--500px" key="qc:fod-summary">Summary:</translate>
+					<div class = "fod-content" ng-bind-html = "$ctrl.summary"></div>
+				</div>
+				<div>
+					<translate class="field-label width--500px" key="qc:fod-recommendation">Recommendations:</translate>
+					<div class = "fod-content" ng-bind-html = "$ctrl.recommendations"></div>
+				</div>
+				<div>
+					<translate class="field-label width--500px" key="qc:fod-tips">Tips:</translate>
+					<div class = "fod-content" ng-bind-html = "$ctrl.tips"></div>
+				</div>
+			</div>
+			<div  ng-if="!$ctrl.loadStatus && !$ctrl.retrievalStatus">
+				<translate class="field-label width--500px" key="qc:fod-cannot-get-data">Cannot retrieve data from fortify on demand</translate>
+			</div>
+		</div>
+	</div>
+</div>
